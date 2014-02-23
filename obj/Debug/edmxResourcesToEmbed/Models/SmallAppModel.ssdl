@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SmallAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="TeamMembers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FullName" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Age" Type="tinyint" Nullable="false" />
+    <Property Name="Presentation" Type="ntext" />
+    <Property Name="TeamId" Type="uniqueidentifier" />
+    <Property Name="Salary" Type="money" />
+    <Property Name="Email" Type="varchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="Teams">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TeamName" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_TeamMembers_Teams">
+    <End Role="Teams" Type="Self.Teams" Multiplicity="0..1" />
+    <End Role="TeamMembers" Type="Self.TeamMembers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeamMembers">
+        <PropertyRef Name="TeamId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SmallAppModelStoreContainer">
+    <EntitySet Name="TeamMembers" EntityType="Self.TeamMembers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_TeamMembers_Teams" Association="Self.FK_TeamMembers_Teams">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="TeamMembers" EntitySet="TeamMembers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

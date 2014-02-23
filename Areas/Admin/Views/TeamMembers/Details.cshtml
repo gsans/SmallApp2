@@ -1,0 +1,44 @@
+﻿@model SmallApp2.Models.Home.TeamViewModel
+
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>TeamMember</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FullName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FullName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Age)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Age)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Presentation)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Presentation)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TeamId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TeamName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { teammemberId = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SmallAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="TeamMember">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="FullName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Age" Type="Byte" Nullable="false" />
+    <Property Name="Presentation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TeamId" Type="Guid" />
+    <NavigationProperty Name="Team" Relationship="Self.FK_TeamMembers_Teams" FromRole="TeamMembers" ToRole="Teams" />
+    <Property Name="Salary" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Team">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="TeamName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="TeamMembers" Relationship="Self.FK_TeamMembers_Teams" FromRole="Teams" ToRole="TeamMembers" />
+  </EntityType>
+  <Association Name="FK_TeamMembers_Teams">
+    <End Role="Teams" Type="Self.Team" Multiplicity="0..1" />
+    <End Role="TeamMembers" Type="Self.TeamMember" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeamMembers">
+        <PropertyRef Name="TeamId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SmallAppEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TeamMembers" EntityType="Self.TeamMember" />
+    <EntitySet Name="Teams" EntityType="Self.Team" />
+    <AssociationSet Name="FK_TeamMembers_Teams" Association="Self.FK_TeamMembers_Teams">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="TeamMembers" EntitySet="TeamMembers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

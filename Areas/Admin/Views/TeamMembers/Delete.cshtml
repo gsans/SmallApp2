@@ -1,0 +1,47 @@
+﻿@model SmallApp2.Models.Home.TeamViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>TeamMember</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FullName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FullName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Age)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Age)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Presentation)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Presentation)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TeamId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TeamName)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

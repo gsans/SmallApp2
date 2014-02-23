@@ -1,0 +1,60 @@
+﻿@model IEnumerable<SmallApp2.Models.Home.TeamViewModel>
+
+@{
+    ViewBag.Title = "Team"; //used on the global template
+}
+
+<h2>Team</h2>
+
+@using (Html.BeginForm("Team", "Home", FormMethod.Post, new { id = "form" }))
+{
+    <div class="search-box">
+        <div class="sb-filter">Filter @Html.DropDownList("Teams", null, new { @name = "TeamId", @onchange = "this.form.submit();" }) </div>
+        <div class="sb-search">Search @Html.TextBox("query") <input type="submit" name="Apply" /></div>
+    </div>
+
+    if (Model.ToList().Count == 0)
+    {
+        <div>Sorry no members have been found using the current filter.</div>
+    }
+    else 
+    {
+    
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Presentation)
+            </th>
+        </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeamName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Presentation)
+            </td>
+
+        </tr>
+    }
+
+    </table>
+    }
+}
